@@ -1,0 +1,60 @@
+0001   0000 1E 02              LD E,02H
+0002   0002 DB 00              IN A,(00H)
+0003   0004 47                 LD B,A
+0004   0005 E6 01              AND 01H
+0005   0007 57                 LD D,A
+0006   0008 78                 LD A,B
+0007   0009 CD 38 00           CALL DIV
+0008   000C 3E 00              LD A,00H
+0009   000E 82                 ADD A,D
+0010   000F C2 2C 00           JP NZ,ONER
+0011   0012 79                 LD A,C
+0012   0013 CD 48 00    CONR   CALL BCDR
+0013   0016 1E 02              LD E,02H
+0014   0018 DB 10              IN A,(10H)
+0015   001A 47                 LD B,A
+0016   001B E6 80              AND 80H
+0017   001D 57                 LD D,A
+0018   001E 78                 LD A,B
+0019   001F 87                 ADD A,A
+0020   0020 47                 LD B,A
+0021   0021 3E 00              LD A,00H
+0022   0023 82                 ADD A,D
+0023   0024 C2 32 00           JP NZ,ONEL
+0024   0027 78                 LD A,B
+0025   0028 CD 59 00    CONL   CALL BCDL
+0026   002B 76                 HALT
+0027   002C 79          ONER   LD A,C
+0028   002D F6 80              OR 80H
+0029   002F C3 13 00           JP CONR
+0030   0032 78          ONEL   LD A,B
+0031   0033 F6 01              OR 01H
+0032   0035 C3 28 00           JP CONL
+0033   0038 0E 00       DIV    LD C,00H
+0034   003A 0C          LOOP   INC C
+0035   003B 93                 SUB E
+0036   003C DA 43 00           JP C,MIN
+0037   003F C2 3A 00           JP NZ,LOOP
+0038   0042 C9          END    RET
+0039   0043 0D          MIN    DEC C
+0040   0044 83                 ADD A,E
+0041   0045 C3 42 00           JP END
+0042   0048 1E 0A       BCDR   LD E,0AH
+0043   004A CD 38 00           CALL DIV
+0044   004D D3 05              OUT (05H),A
+0045   004F 79                 LD A,C
+0046   0050 CD 38 00           CALL DIV
+0047   0053 D3 04              OUT (04H),A
+0048   0055 79                 LD A,C
+0049   0056 D3 03              OUT (03H),A
+0050   0058 C9                 RET
+0051   0059 1E 0A       BCDL   LD E,0AH
+0052   005B CD 38 00           CALL DIV
+0053   005E D3 15              OUT (15H),A
+0054   0060 79                 LD A,C
+0055   0061 CD 38 00           CALL DIV
+0056   0064 D3 14              OUT (14H),A
+0057   0066 79                 LD A,C
+0058   0067 D3 13              OUT (13H),A
+0059   0069 C9                 RET
+Number of errors = 0
